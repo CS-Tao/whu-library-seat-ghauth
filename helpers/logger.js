@@ -1,4 +1,4 @@
-function info (stack, message) {
+function log (stack, message) {
   console.log(`INFO | ${Date.now} | ${stack} : ${message}`)
 }
 
@@ -7,5 +7,5 @@ function error (stack, message) {
 }
 
 module.exports = {
-  info, error
+  log, error
 };
