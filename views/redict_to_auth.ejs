@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/images/app.png" type="image/png">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <div id="main">
+      <div id="main-header">
+        <img class="logo-icon" src="/images/app.png"/>
+        <div class="logo-text">图书馆抢座软件</div>
+        <a target="_blank" href="https://home.cs-tao.cc/whu-library-seat/" class="doc-link">使用文档</a>
+        <a target="_blank" href="https://github.com/CS-Tao/whu-library-seat" class="doc-link" style="right: 90px;">项目地址</a>
+      </div>
+      <div id="main-body">
+        <h1 class="band-blue">是否通过 GitHub 账号登录本软件</h1>
+        <h3 class="text-normal">软件会获取您公开的 GitHub 账号信息，该信息不涉及任何隐私</h3>
+        <div class="send-btn" @click="login()">确定通过 GitHub 账号登录</div>
+        <div class="cancel-send-btn" @click="cancelLogin()">取消登录</div>
+      </div>
+      <div id="main-footer">
+        <span class="copy-right">Copyright © 2018 CS-Tao</span>
+      </div>
+    </div>
+  </body>
+  <script src="/javascripts/vue.min.js"></script>
+  <script>
+  new Vue({
+    el: '#main',
+    data: {
+      guid: '<%= guid %>'
+    },
+    mounted () {
+      var guidKey = 'guid';
+      if (this.getCookie(guidKey) !== null) {
+        this.delCookie(guidKey);
+      }
+      this.setCookie(guidKey, this.guid);
+    },
+    methods: {
+      login () {
+        window.location.href = 'https://github.com/login/oauth/authorize?client_id=3aac81850b4e715b22e8';
+      },
+      cancelLogin () {
+        window.location.href = '/?cancel=true';
+      },
+      setCookie (name, value) {
+        var Days = 30;
+        var exp = new Date();
+        exp.setTime(exp.getTime() +  Days*24*60*60*1000);
+        document.cookie = name + "="+ escape (value) + ";expires=" + exp.toGMTString();
+      },
+      getCookie (name) {
+        var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
+        if(arr=document.cookie.match(reg))
+          return unescape(arr[2]);
+        else
+          return null;
+      },
+      delCookie (name) {
+        var exp = new Date();
+        exp.setTime(exp.getTime() - 1);
+        var cval = this.getCookie(name);
+        if(cval != null)
+          document.cookie= name + "=" + cval + ";expires=" + exp.toGMTString();
+      }
+    }
+  })
+  </script>
+</html>

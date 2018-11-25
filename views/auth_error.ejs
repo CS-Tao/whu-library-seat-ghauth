@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/images/app.png" type="image/png">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <div id="main">
+      <div id="main-header">
+        <img class="logo-icon" src="/images/app.png"/>
+        <div class="logo-text">图书馆抢座软件</div>
+        <a target="_blank" href="https://home.cs-tao.cc/whu-library-seat/" class="doc-link">使用文档</a>
+        <a target="_blank" href="https://github.com/CS-Tao/whu-library-seat" class="doc-link" style="right: 90px;">项目地址</a>
+      </div>
+      <div id="main-body">
+        <h1 class="<%= statusColorClass %>"><%= status %></h1>
+        <h3 class="text-normal"><%= statusText %></h3>
+        <h2 class="text-large fade"><%= statusText2 %></h2>
+        <div class="image-wraper fade">
+          <img class="icon image-fade" src="/images/github.svg"/>
+          <img class="icon image-fade" src="/images/app.png"/>
+        </div>
+      </div>
+      <div id="main-footer">
+        <span class="copy-right">Copyright © 2018 CS-Tao</span>
+      </div>
+    </div>
+  </body>
+</html>

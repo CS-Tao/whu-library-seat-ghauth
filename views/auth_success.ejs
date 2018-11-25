@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/images/app.png" type="image/png">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <div id="main">
+      <div id="main-header">
+        <img class="logo-icon" src="/images/app.png"/>
+        <div class="logo-text">图书馆抢座软件</div>
+        <a target="_blank" href="https://home.cs-tao.cc/whu-library-seat/" class="doc-link">使用文档</a>
+        <a target="_blank" href="https://github.com/CS-Tao/whu-library-seat" class="doc-link" style="right: 90px;">项目地址</a>
+      </div>
+      <div id="main-body">
+        <h1 :class="bandColorClass">{{bandText}}</h1>
+        <h3 class="text-normal">{{smallText}}</h3>
+        <h2 class="text-large fade">{{largeText}}</h2>
+        <div v-if="!working" class="image-wraper fade">
+          <img class="icon image-fade" src="/images/github.svg"/>
+          <img class="icon image-fade" src="/images/app.png"/>
+        </div>
+      </div>
+      <div id="main-footer">
+        <span class="copy-right">Copyright © 2018 CS-Tao</span>
+      </div>
+    </div>
+  </body>
+  <script src="/javascripts/vue.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script>
+  new Vue({
+    el: '#main',
+    data: {
+      workMode: 'working',
+      failedMessage: '认证失败',
+      token: '<%= token %>',
+      guid: null
+    },
+    computed: {
+      working () {
+        return this.workMode === 'working'
+      },
+      success () {
+        return this.workMode === 'success'
+      },
+      failed () {
+        return this.workMode === 'failed'
+      },
+      bandText () {
+        if (this.working) {
+          return '正在授权...'
+        } else if (this.success) {
+          return 'success!'
+        } else if (this.failed) {
+          return 'Failed!'
+        } else {
+          return ''
+        }
+      },
+      bandColorClass () {
+        if (this.working) {
+          return 'band-yellow'
+        } else if (this.success) {
+          return 'band-green'
+        } else if (this.failed) {
+          return 'band-red'
+        } else {
+          return null
+        }
+      },
+      largeText () {
+        if (this.working) {
+          return ''
+        } else if (this.success) {
+          return '请打开软件查看'
+        } else if (this.failed) {
+          return '请打开软件尝试重新登录'
+        } else {
+          return ''
+        }
+      },
+      smallText () {
+        if (this.working) {
+          return ''
+        } else if (this.success) {
+          return '认证成功'
+        } else if (this.failed) {
+          return this.failedMessage
+        } else {
+          return ''
+        }
+      }
+    },
+    mounted () {
+      var guidKey = 'guid'
+      this.workMode = 'working'
+      this.guid = this.getCookie(guidKey)
+      if (this.guid !== null) {
+        axios.get(`/settoken?token=${this.token}&guid=${this.guid}`)
+          .then((response) => {
+            if (response.status === 200) {
+              if (response.data.status === 'success') {
+                this.workMode = 'success';
+              } else {
+                this.workMode = 'failed';
+                this.failedMessage = '错误：' + response.data.message;
+              }
+            } else {
+              this.workMode = 'failed';
+              console.error('返回错误：' + response.status);
+            }
+          })
+          .catch((error) => {
+            this.workMode = 'failed';
+            this.failedMessage = '错误: ' + error.message;
+            console.error('请求出错：' + error.message);
+          });
+      } else {
+        this.workMode = 'failed';
+        this.failedMessage = '错误: 缺少请求参数';
+      }
+    },
+    methods: {
+      getCookie (name) {
+        var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
+        if(arr=document.cookie.match(reg))
+          return unescape(arr[2]);
+        else
+          return null;
+      }
+    }
+  })
+  </script>
+</html>
