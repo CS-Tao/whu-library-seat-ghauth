@@ -19,8 +19,9 @@ router.get('/', function(req, res, next) {
   }
   // 中转，用于存储 guid
   var authguid = req.query.authguid;
-  if (authguid) {
-    autherHelper.addGuid(authguid)
+  var device = req.query.device;
+  if (authguid && device) {
+    autherHelper.addGuid(authguid, device)
     res.render('redict_to_auth', {
       title: '武汉大学图书馆抢座软件',
       guid: authguid
@@ -49,7 +50,7 @@ router.get('/', function(req, res, next) {
         });
       });
   } else {
-    logger.error('参数不足');
+    logger.error('index', '参数不足');
     res.render('auth_error', {
       title: '武汉大学图书馆抢座软件',
       status: 'Error!',

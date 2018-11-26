@@ -13,7 +13,7 @@
         <div class="logo-text">图书馆抢座软件</div>
         <a target="_blank" href="https://home.cs-tao.cc/whu-library-seat/" class="doc-link">使用文档</a>
       </div>
-      <div id="main-body">
+      <div id="main-body" style="opacity: 0;" :style="{'opacity: 1;': haveMounted}">
         <h1 :class="bandColorClass">{{bandText}}</h1>
         <h3 class="text-normal">{{smallText}}</h3>
         <h2 class="text-large fade">{{largeText}}</h2>
@@ -33,6 +33,7 @@
   new Vue({
     el: '#main',
     data: {
+      haveMounted: false,
       workMode: 'working',
       failedMessage: '认证失败',
       token: '<%= token %>',
@@ -94,6 +95,7 @@
       }
     },
     mounted () {
+      this.haveMounted = true
       var guidKey = 'guid'
       this.workMode = 'working'
       this.guid = this.getCookie(guidKey)
