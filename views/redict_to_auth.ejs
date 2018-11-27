@@ -29,21 +29,19 @@
   new Vue({
     el: '#main',
     data: {
-      guid: '<%= guid %>'
-    },
-    mounted () {
-      var guidKey = 'guid';
-      if (this.getCookie(guidKey) !== null) {
-        this.delCookie(guidKey);
-      }
-      this.setCookie(guidKey, this.guid);
+      socketId: '<%= socketId %>'
     },
     methods: {
       login () {
+        var socketIdKey = 'socketId';
+        if (this.getCookie(socketIdKey) !== null) {
+          this.delCookie(socketIdKey);
+        }
+        this.setCookie(socketIdKey, this.socketId);
         window.location.href = 'https://github.com/login/oauth/authorize?client_id=3aac81850b4e715b22e8';
       },
       cancelLogin () {
-        window.location.href = '/?cancel=true';
+        window.location.href = '/canceled';
       },
       setCookie (name, value) {
         var Days = 30;

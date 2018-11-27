@@ -5,10 +5,10 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  var guid = req.query.guid
+  var socketId = req.query.socketid
   var token = req.query.token
-  logger.log('setToken', `Guid：${guid}`)
-  if (autherHelper.addToken(guid, token)) {
+  logger.log('setToken', `socketId：${socketId}`)
+  if (autherHelper.addToken(socketId, token)) {
     if (token === 'cancel') {
       res.json({
         status: 'cancel',

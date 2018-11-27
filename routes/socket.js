@@ -6,7 +6,7 @@ var router = express.Router();
 /* GET home page. */
 router.get('/', function(req, res, next) {
   var socketId = req.query.socketid
-  logger.log('getToken.js', socketId)
+  logger.log('socket.js', socketId)
   var token = autherHelper.getToken(socketId)
   if (token) {
     res.json({

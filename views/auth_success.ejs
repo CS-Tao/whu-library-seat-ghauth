@@ -37,7 +37,7 @@
       workMode: 'working',
       failedMessage: '认证失败',
       token: '<%= token %>',
-      guid: null
+      socketId: null
     },
     computed: {
       working () {
@@ -96,11 +96,11 @@
     },
     mounted () {
       this.haveMounted = true
-      var guidKey = 'guid'
+      var socketIdKey = 'socketId'
       this.workMode = 'working'
-      this.guid = this.getCookie(guidKey)
-      if (this.guid !== null) {
-        axios.get(`/settoken?token=${this.token}&guid=${this.guid}`)
+      this.socketId = this.getCookie(socketIdKey)
+      if (this.socketId !== null) {
+        axios.get(`/settoken?socketid=${this.socketId}&token=${this.token}`)
           .then((response) => {
             if (response.status === 200) {
               if (response.data.status === 'success') {
@@ -121,7 +121,7 @@
           });
       } else {
         this.workMode = 'failed';
-        this.failedMessage = '错误: 缺少请求参数';
+        this.failedMessage = '错误: 缺少本地缓存';
       }
     },
     methods: {

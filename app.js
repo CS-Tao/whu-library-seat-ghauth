@@ -4,10 +4,12 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var index = require('./routes/index');
+var loginComfirm = require('./routes/loginComfirm');
+var loginCanceled = require('./routes/loginCanceled');
 var getToken = require('./routes/getToken');
 var setToken = require('./routes/setToken');
+var socket = require('./routes/socket');
 
 require('./helpers/auths');
 
@@ -23,8 +25,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/', index);
+app.use('/comfirm', loginComfirm);
+app.use('/canceled', loginCanceled);
 app.use('/settoken', setToken);
 app.use('/gettoken', getToken);
 
