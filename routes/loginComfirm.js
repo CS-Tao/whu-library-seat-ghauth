@@ -8,7 +8,7 @@ router.get('/', function(req, res, next) {
   // 确认是否登录，用于本地存储 socketid
   var socketId = req.query.socketid;
   var device = req.query.device;
-  if (socketid && device) {
+  if (socketId && device) {
     autherHelper.addSocketId(socketId, device)
     res.render('redict_to_auth', {
       title: '武汉大学图书馆抢座软件',
