@@ -1,15 +1,14 @@
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
+var app = express();  
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 var index = require('./routes/index');
 var loginComfirm = require('./routes/loginComfirm');
 var loginCanceled = require('./routes/loginCanceled');
-var getToken = require('./routes/getToken');
 var setToken = require('./routes/setToken');
-var socket = require('./routes/socket');
 
 require('./helpers/auths');
 
@@ -29,7 +28,6 @@ app.use('/', index);
 app.use('/comfirm', loginComfirm);
 app.use('/canceled', loginCanceled);
 app.use('/settoken', setToken);
-app.use('/gettoken', getToken);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

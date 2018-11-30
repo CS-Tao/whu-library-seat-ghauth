@@ -1,5 +1,4 @@
 var express = require('express');
-var autherHelper = require('../helpers/auths');
 var logger = require('../helpers/logger');
 var router = express.Router();
 
@@ -9,8 +8,7 @@ router.get('/', function(req, res, next) {
   var socketId = req.query.socketid;
   var device = req.query.device;
   if (socketId && device) {
-    autherHelper.addSocketId(socketId, device)
-    res.render('redict_to_auth', {
+    res.render('auth_comfirm', {
       title: '武汉大学图书馆抢座软件',
       socketId: socketId
     });

@@ -36,6 +36,7 @@ router.get('/', function(req, res, next) {
       statusText2: '请打开软件尝试重新登录'
     })
   }
+  return
 });
 
 module.exports = router;

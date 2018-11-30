@@ -22,6 +22,38 @@ app.set('port', port);
 var server = http.createServer(app);
 
 /**
+ * Create socket.io server.
+ */
+
+ function clientIsValid (id) {
+   const ids = ['whu-library-seat', 'whu-library-seat-mobile']
+   return ids.findIndex((item) => item === id) !== -1
+ }
+
+var io = require('socket.io')(server);
+app.set('socketio', io);
+
+io.use((socket, next) => {
+  let clientId = socket.handshake.headers['x-clientid'];
+  if (clientIsValid(clientId)) {
+    return next();
+  }
+  return next(new Error('认证失败'));
+});
+
+const connectedSockets = new Set();
+
+io.on('connection', socketio => {
+  console.log(`Socket 连接成功: ${socketio.id}`)
+  connectedSockets.add(socketio);
+  socketio.on('disconnect', () => {
+    connectedSockets.delete(socketio);
+    console.log(`Socket 删除成功: ${socketio.id}`)
+  });
+  socketio.emit('socketId', socketio.id);
+});
+
+/**
  * Listen on provided port, on all network interfaces.
  */
 
