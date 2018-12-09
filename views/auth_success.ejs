@@ -101,10 +101,8 @@
       this.socketId = this.getCookie(socketIdKey)
       if (this.socketId !== null) {
         axios.post(`/settoken`, {
-          data: {
-            socketid: this.socketId,
-            token: this.token
-          }
+          socketid: this.socketId,
+          token: this.token
         })
           .then((response) => {
             if (response.status === 200) {
