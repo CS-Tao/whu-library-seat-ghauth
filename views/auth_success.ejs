@@ -100,7 +100,12 @@
       this.workMode = 'working'
       this.socketId = this.getCookie(socketIdKey)
       if (this.socketId !== null) {
-        axios.get(`/settoken?socketid=${this.socketId}&token=${this.token}`)
+        axios.post(`/settoken`, {
+          data: {
+            socketid: this.socketId,
+            token: this.token
+          }
+        })
           .then((response) => {
             if (response.status === 200) {
               if (response.data.status === 'success') {

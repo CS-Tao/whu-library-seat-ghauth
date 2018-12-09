@@ -3,9 +3,9 @@ var logger = require('../helpers/logger');
 var router = express.Router();
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  var socketId = req.query.socketid
-  var token = req.query.token
+router.post('/', function(req, res, next) {
+  var socketId = req.body.socketid
+  var token = req.body.token
   if (socketId && token) {
     logger.log('setToken', `socketId：${socketId}`)
     const io = req.app.get('socketio');
