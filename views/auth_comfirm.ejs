@@ -12,6 +12,7 @@
         <img class="logo-icon" src="/images/app.png"/>
         <div class="logo-text">图书馆抢座软件</div>
         <a target="_blank" href="https://home.cs-tao.cc/whu-library-seat/" class="doc-link">使用文档</a>
+        <a v-if="device==='desktop'" target="_blank" href="https://github.com/CS-Tao/whu-library-seat" class="doc-link" style="right: 90px;">项目地址</a>
       </div>
       <div id="main-body">
         <h1 class="band-blue">是否通过 GitHub 账号登录本软件</h1>
@@ -30,6 +31,7 @@
     el: '#main',
     data: {
       socketId: '<%= socketId %>',
+      device: '<%= device %>',
       loading: false
     },
     methods: {
@@ -38,11 +40,19 @@
           return
         }
         this.loading = true
+        // Add socket id to cache
         var socketIdKey = 'socketId';
         if (this.getCookie(socketIdKey) !== null) {
           this.delCookie(socketIdKey);
         }
         this.setCookie(socketIdKey, this.socketId);
+        // Add other params to cache
+        var deviceKey = 'device';
+        if (this.getCookie(deviceKey) !== null) {
+          this.delCookie(deviceKey);
+        }
+        this.setCookie(deviceKey, this.device);
+        // Go to github authorize page
         window.location.href = 'https://github.com/login/oauth/authorize?client_id=3aac81850b4e715b22e8';
       },
       cancelLogin () {

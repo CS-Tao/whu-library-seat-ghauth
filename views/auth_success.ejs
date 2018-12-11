@@ -12,6 +12,7 @@
         <img class="logo-icon" src="/images/app.png"/>
         <div class="logo-text">图书馆抢座软件</div>
         <a target="_blank" href="https://home.cs-tao.cc/whu-library-seat/" class="doc-link">使用文档</a>
+        <a v-if="device==='desktop'" target="_blank" href="https://github.com/CS-Tao/whu-library-seat" class="doc-link" style="right: 90px;">项目地址</a>
       </div>
       <div id="main-body" style="opacity: 0;" :style="haveMounted?'opacity: 1;':null">
         <h1 :class="bandColorClass">{{bandText}}</h1>
@@ -37,7 +38,8 @@
       workMode: 'working',
       failedMessage: '认证失败',
       token: '<%= token %>',
-      socketId: null
+      socketId: null,
+      device: null
     },
     computed: {
       working () {
@@ -95,11 +97,13 @@
       }
     },
     mounted () {
-      this.haveMounted = true
       var socketIdKey = 'socketId'
+      var deviceKey = 'device'
       this.workMode = 'working'
       this.socketId = this.getCookie(socketIdKey)
+      this.device = this.getCookie(deviceKey)
       if (this.socketId !== null) {
+        // send github auth token to backend
         axios.post(`/settoken`, {
           socketid: this.socketId,
           token: this.token
@@ -126,6 +130,7 @@
         this.workMode = 'failed';
         this.failedMessage = '错误: 缺少本地缓存';
       }
+      this.haveMounted = true
     },
     methods: {
       getCookie (name) {

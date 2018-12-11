@@ -10,7 +10,8 @@ router.get('/', function(req, res, next) {
   if (socketId && device) {
     res.render('auth_comfirm', {
       title: '武汉大学图书馆抢座软件',
-      socketId: socketId
+      socketId: socketId,
+      device: device
     });
     return
   } else {
