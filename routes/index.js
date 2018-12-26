@@ -5,41 +5,19 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  // 返回取消认证的页面
-  var cancel = req.query.cancel;
-  if (cancel) {
-    res.render('auth_error', {
-      title: '武汉大学图书馆抢座软件',
-      status: 'Canceled!',
-      statusColorClass: 'band-yellow',
-      statusText: '登录已取消',
-      statusText2: '请打开软件查看'
-    })
-    return
-  }
-  // 中转，用于存储 guid
-  var authguid = req.query.authguid;
-  if (authguid) {
-    autherHelper.addGuid(authguid)
-    res.render('redict_to_auth', {
-      title: '武汉大学图书馆抢座软件',
-      guid: authguid
-    });
-    return
-  }
   // 获得 Code，请求 Token
   var code = req.query.code;
   if (code) {
     autherHelper.queryToken(code)
       .then((token) => {
-        logger.log('index', 'token 是 ' + token);
+        logger.log('index.js', 'token 是 ' + token);
         res.render('auth_success', {
           title: '武汉大学图书馆抢座软件',
           token: token
         });
       })
       .catch((error) => {
-        logger.error('index', error.message);
+        logger.error('index.js', error.message);
         res.render('auth_error', {
           title: '武汉大学图书馆抢座软件',
           status: 'Failed!',
@@ -49,7 +27,7 @@ router.get('/', function(req, res, next) {
         });
       });
   } else {
-    logger.error('参数不足');
+    logger.error('index.js', '参数不足');
     res.render('auth_error', {
       title: '武汉大学图书馆抢座软件',
       status: 'Error!',
@@ -58,6 +36,7 @@ router.get('/', function(req, res, next) {
       statusText2: '请打开软件尝试重新登录'
     })
   }
+  return
 });
 
 module.exports = router;

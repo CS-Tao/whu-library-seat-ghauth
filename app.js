@@ -1,13 +1,14 @@
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
+var app = express();  
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var getToken = require('./routes/getToken');
-var settoken = require('./routes/settoken');
+var index = require('./routes/index');
+var loginComfirm = require('./routes/loginComfirm');
+var loginCanceled = require('./routes/loginCanceled');
+var setToken = require('./routes/setToken');
 
 require('./helpers/auths');
 
@@ -23,10 +24,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use('/settoken', settoken);
-app.use('/gettoken', getToken);
+app.use('/', index);
+app.use('/comfirm', loginComfirm);
+app.use('/canceled', loginCanceled);
+app.use('/settoken', setToken);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

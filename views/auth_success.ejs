@@ -12,9 +12,9 @@
         <img class="logo-icon" src="/images/app.png"/>
         <div class="logo-text">图书馆抢座软件</div>
         <a target="_blank" href="https://home.cs-tao.cc/whu-library-seat/" class="doc-link">使用文档</a>
-        <a target="_blank" href="https://github.com/CS-Tao/whu-library-seat" class="doc-link" style="right: 90px;">项目地址</a>
+        <a v-if="device==='desktop'" target="_blank" href="https://github.com/CS-Tao/whu-library-seat" class="doc-link" style="right: 90px;">项目地址</a>
       </div>
-      <div id="main-body">
+      <div id="main-body" style="opacity: 0;" :style="haveMounted?'opacity: 1;':null">
         <h1 :class="bandColorClass">{{bandText}}</h1>
         <h3 class="text-normal">{{smallText}}</h3>
         <h2 class="text-large fade">{{largeText}}</h2>
@@ -29,15 +29,17 @@
     </div>
   </body>
   <script src="/javascripts/vue.js"></script>
-  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="/javascripts/axios.min.js"></script>
   <script>
   new Vue({
     el: '#main',
     data: {
+      haveMounted: false,
       workMode: 'working',
       failedMessage: '认证失败',
       token: '<%= token %>',
-      guid: null
+      socketId: null,
+      device: null
     },
     computed: {
       working () {
@@ -95,11 +97,17 @@
       }
     },
     mounted () {
-      var guidKey = 'guid'
+      var socketIdKey = 'socketId'
+      var deviceKey = 'device'
       this.workMode = 'working'
-      this.guid = this.getCookie(guidKey)
-      if (this.guid !== null) {
-        axios.get(`/settoken?token=${this.token}&guid=${this.guid}`)
+      this.socketId = this.getCookie(socketIdKey)
+      this.device = this.getCookie(deviceKey)
+      if (this.socketId !== null) {
+        // send github auth token to backend
+        axios.post(`/settoken`, {
+          socketid: this.socketId,
+          token: this.token
+        })
           .then((response) => {
             if (response.status === 200) {
               if (response.data.status === 'success') {
@@ -120,8 +128,9 @@
           });
       } else {
         this.workMode = 'failed';
-        this.failedMessage = '错误: 缺少请求参数';
+        this.failedMessage = '错误: 缺少本地缓存';
       }
+      this.haveMounted = true
     },
     methods: {
       getCookie (name) {
