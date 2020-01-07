@@ -8,6 +8,8 @@ var app = require('../app');
 var debug = require('debug')('whu-library-seat-ghauth:server');
 var http = require('http');
 
+var logger = require('../helpers/logger');
+
 /**
  * Get port from environment and store in Express.
  */
@@ -44,11 +46,12 @@ io.use((socket, next) => {
 const connectedSockets = new Set();
 
 io.on('connection', socketio => {
-  console.log(`Socket 连接成功: ${socketio.id}`)
+  logger.log('Socket connected', socketio.id)
   connectedSockets.add(socketio);
   socketio.on('disconnect', () => {
     connectedSockets.delete(socketio);
-    console.log(`Socket 删除成功: ${socketio.id}`)
+    logger.log('Socket deleted', socketio.id)
+    logger.log('Remaining sockets', [...connectedSockets].join('  '))
   });
   socketio.emit('socketId', socketio.id);
 });

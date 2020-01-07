@@ -12,14 +12,14 @@ router.get('/', function(req, res, next) {
       .then((token) => {
         logger.log('index.js', 'token 是 ' + token);
         res.render('auth_success', {
-          title: '武汉大学图书馆抢座软件',
+          title: '图书馆助手',
           token: token
         });
       })
       .catch((error) => {
         logger.error('index.js', error.message);
         res.render('auth_error', {
-          title: '武汉大学图书馆抢座软件',
+          title: '图书馆助手',
           status: 'Failed!',
           statusColorClass: 'band-red',
           statusText: '错误信息：' + error.message,
@@ -29,7 +29,7 @@ router.get('/', function(req, res, next) {
   } else {
     logger.error('index.js', '参数不足');
     res.render('auth_error', {
-      title: '武汉大学图书馆抢座软件',
+      title: '图书馆助手',
       status: 'Error!',
       statusColorClass: 'band-red',
       statusText: '错误信息：认证失败，参数不足',

@@ -7,6 +7,7 @@ var logger = require('morgan');
 
 var index = require('./routes/index');
 var loginComfirm = require('./routes/loginComfirm');
+var loginManual = require('./routes/loginManual');
 var loginCanceled = require('./routes/loginCanceled');
 var setToken = require('./routes/setToken');
 
@@ -26,6 +27,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/comfirm', loginComfirm);
+app.use('/manual', loginManual);
 app.use('/canceled', loginCanceled);
 app.use('/settoken', setToken);
 
