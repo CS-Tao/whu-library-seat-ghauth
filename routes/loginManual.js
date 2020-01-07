@@ -6,16 +6,16 @@ var router = express.Router();
 router.get('/', function(req, res, next) {
   var socketId = req.query.socketid
   if (socketId) {
-    logger.log('loginCanceled', `socketId：${socketId}`)
+    logger.log('loginManual', `socketId：${socketId}`)
     const io = req.app.get('socketio');
-    io.to(socketId).emit('cancel', socketId);
-    // 返回取消认证的页面
-    res.render('auth_error', {
+    io.to(socketId).emit('disconnect', socketId);
+    // 返回手动认证的页面
+    res.render('auth_manual', {
       title: '图书馆助手',
-      status: 'Canceled!',
+      status: 'Disconnect!',
       statusColorClass: 'band-yellow',
-      statusText: '已取消登录',
-      statusText2: '请打开软件查看'
+      statusText: '已主动和断开客户端连接，请您进入下方链接手动申请 Token 后粘贴到软件中',
+      isMobile: req.query.device == 'mobile'
     })
   } else {
     res.render('auth_error', {

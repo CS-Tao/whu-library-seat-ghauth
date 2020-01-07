@@ -21,11 +21,11 @@ function formatDate (date, options) {
 }
 
 function log (stack, message) {
-  // console.log(`INFO | ${formatDate(new Date())} | ${stack} : ${message}`)
+  console.log(`INFO | ${formatDate(new Date())} | ${stack} : ${message}`)
 }
 
 function error (stack, message) {
-  // console.error(`ERROR | ${formatDate(new Date())} | ${stack} : ${message}`)
+  console.error(`ERROR | ${formatDate(new Date())} | ${stack} : ${message}`)
 }
 
 module.exports = {

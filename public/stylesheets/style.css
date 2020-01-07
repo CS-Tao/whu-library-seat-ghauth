@@ -129,16 +129,72 @@ a {
   animation: 1s opacity-basic 1.5s ease-in forwards;
 }
 
+.icon-connect {
+  fill: rgba(0, 204, 0, .7);
+  opacity: 0;
+  display: inline-block;
+  height: 5.1rem;
+  transform: rotate(-135deg);
+  -webkit-animation: 1.2s opacity-basic 1.8s ease-in forwards;
+  animation: 1.2s opacity-basic 1.8s ease-in forwards;
+}
+
+.icon-disconnect {
+  fill: rgba(255, 0, 0, 0.45);
+  opacity: 0;
+  display: inline-block;
+  height: 5.1rem;
+  margin: auto 10px;
+  -webkit-animation: 1.2s opacity-basic 1.8s ease-in forwards;
+  animation: 1.2s opacity-basic 1.8s ease-in forwards;
+}
+
 .icon {
   opacity: 0;
   display: inline-block;
   height: 5.1rem;
-  margin: 1.7rem 1.7rem 0;
+  margin: 1.7rem .5rem 0;
 }
 
 .logo-icon {
   height: 40px;
   margin: 15px;
+}
+
+@keyframes rotation {
+  from {
+      -webkit-transform: rotate(0deg);
+  }
+  to {
+      -webkit-transform: rotate(360deg);
+  }
+}
+
+@-webkit-keyframes rotation {
+  from {
+      -webkit-transform: rotate(0deg);
+  }
+  to {
+      -webkit-transform: rotate(360deg);
+  }
+}
+
+.loading-wrap {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+  fill: rgb(230, 230, 230);
+}
+
+.loading-icon {
+  width: 6rem;
+  height: 6rem;
+  fill: rgb(230, 230, 230);
+  animation: rotation 2.5s linear infinite;
+  -moz-animation: rotation 2.5s linear infinite;
+  -webkit-animation: rotation 2.5s linear infinite;
+  -o-animation: rotation 2.5s linear infinite;
 }
 
 .logo-text {
@@ -196,7 +252,7 @@ a {
 }
 
 .send-btn {
-  margin: 40px auto 0;
+  margin: 20px auto 0;
   font-size: 20px;
   width: auto;
   height: auto;
@@ -222,8 +278,34 @@ a {
   background: rgba(0, 204, 0, 0.5) !important;
 }
 
+.manual-btn {
+  margin: 30px auto 0;
+  font-size: 16px;
+  height: auto;
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  color: white;
+  line-height: 1.5;
+  border-radius: 3px !important;
+  background: rgba(255, 255, 0, 0.2) !important;
+  border: 1px solid rgba(255, 255, 0, .8) !important;
+  border-radius: 0;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+.manual-btn:hover {
+  background: rgba(255, 255, 0, 0.28) !important;
+}
+.manual-btn:active {
+  background: rgba(255, 255, 0, 0.4) !important;
+}
+
 .cancel-send-btn {
-  margin: 40px auto 0;
+  margin: 30px auto 0;
   font-size: 1rem;
   height: auto;
   padding: 4px 16px;
@@ -251,4 +333,75 @@ a {
 .copy-right {
   margin: auto;
   color: rgb(230, 230, 230);
+}
+
+.address-group {
+  display: flex;
+  align-items: center;
+  margin: 10px 0 20px 0;
+}
+
+.address {
+  width: 360px;
+  box-sizing: border-box;
+  max-width: 80vw;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  display: table-cell;
+  font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;
+  padding: 6px 10px;
+  font-size: 16px;
+  line-height: 20px;
+  color: white;
+  vertical-align: middle;
+  background-color: rgb(28, 30, 35);
+  box-shadow: 0px 0px 6px inset black;
+  border: 1px solid black !important;
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  border: none;
+  border-radius: 3px;
+  outline: none;
+  overflow: visible;
+}
+
+.address-go {
+  font-size: 16px;
+  box-sizing: border-box;
+  padding: 7px;
+  margin-left: 2px;
+  cursor: pointer;
+  color: white;
+  border-radius: 3px !important;
+  background: rgba(0, 204, 0, 0.3) !important;
+  border: 1px solid rgb(0, 204, 0) !important;
+  border-radius: 0;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+.address-go:hover {
+  background: rgba(0, 204, 0, 0.38) !important;
+}
+.address-go:active {
+  background: rgba(0, 204, 0, 0.5) !important;
+}
+
+.tip {
+  color: rgb(230, 230, 230);
+  font-style: italic;
+}
+
+.help-group {
+  opacity: 0;
+  margin: 30px 0 20px 0;
+  display: flex;
+  align-items: center;
+}
+
+.help-link {
+  color: rgb(230, 230, 230);
+  text-decoration: underline;
+  margin: 0 6px;
 }

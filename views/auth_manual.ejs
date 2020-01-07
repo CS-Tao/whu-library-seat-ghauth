@@ -16,7 +16,24 @@
       <div id="main-body">
         <h1 class="<%= statusColorClass %>"><%= status %></h1>
         <h3 class="text-normal"><%= statusText %></h3>
-        <h2 class="text-large fade"><%= statusText2 %></h2>
+        <div class="address-group">
+          <input class="address" readonly="readonly" value="https://github.com/settings/tokens/new">
+          <div class="address-go" onclick="window.location='https://github.com/settings/tokens/new'">GO</div>
+        </div>
+        <% if(isMobile) {
+          %> 
+          <span class="tip">注意：如果浏览器不兼容 GitHub 或链接无法访问，请复制上方链接到其它浏览器或在电脑上打开</span>
+          <%
+         } else {
+          %>
+          <span class="tip">注意：如果浏览器不兼容 GitHub，请复制上方链接到其它浏览器打开，建议使用谷歌浏览器</span>
+          <%
+        } %>
+        <div class="help-group fade">
+          <a class="help-link" target="_blank" href="https://home.cs-tao.cc/whu-library-seat/specification/manualtoken.html">查看详细申请步骤</a>
+          <a class="help-link" target="_blank" href="https://github.com/CS-Tao/whu-library-seat">打开桌面端项目</a>
+          <a class="help-link" target="_blank" href="https://github.com/CS-Tao/whu-library-seat-mobile">打开移动端项目</a>
+        </div>
         <div class="image-wraper fade">
           <img class="icon image-fade" src="/images/github.svg"/>
           <svg class="icon-disconnect" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4193" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="M992 512h-258.56a228.064 228.064 0 0 0-15.168-55.68 224.64 224.64 0 0 0-48.16-70.848 32 32 0 1 0-44.864 45.664c14.144 13.92 25.728 31.008 34.176 50.304a161.792 161.792 0 0 1 0.224 124.608 162.24 162.24 0 0 1-34.816 51.2 159.808 159.808 0 0 1-50.24 34.176 162.624 162.624 0 0 1-125.152 0 32 32 0 1 0-24.64 59.072 225.664 225.664 0 0 0 174.848-0.192 223.52 223.52 0 0 0 70.464-47.776 225.28 225.28 0 0 0 48.384-71.36A225.984 225.984 0 0 0 733.472 576H992a32 32 0 1 0 0-64zM616.416 379.36a32 32 0 0 0-17.216-41.856 226.048 226.048 0 0 0-174.848 0.224 223.52 223.52 0 0 0-70.464 47.744 225.28 225.28 0 0 0-48.384 71.36 225.824 225.824 0 0 0-15.2 56.64c-2.432-0.576-4.8-1.472-7.424-1.472H32a32 32 0 1 0 0 64h250.88c2.624 0 4.992-0.896 7.456-1.504a227.84 227.84 0 0 0 15.36 57.216 224.64 224.64 0 0 0 48.192 70.816 31.936 31.936 0 0 0 45.28-0.416 32 32 0 0 0-0.416-45.248 160.832 160.832 0 0 1-34.176-50.304 161.792 161.792 0 0 1-0.224-124.608 162.24 162.24 0 0 1 34.816-51.2 159.808 159.808 0 0 1 50.24-34.176 162.624 162.624 0 0 1 125.152 0 32 32 0 0 0 41.856-17.216z" p-id="4194"></path><path d="M603.328 452.672a16 16 0 0 0-22.656 0L512 521.376l-68.672-68.704a16 16 0 1 0-22.656 22.656L489.376 544l-68.704 68.672a16 16 0 1 0 22.656 22.656L512 566.624l68.672 68.704a15.936 15.936 0 0 0 22.656 0 16 16 0 0 0 0-22.656L534.624 544l68.704-68.672a16 16 0 0 0 0-22.656z" p-id="4195"></path></svg>
