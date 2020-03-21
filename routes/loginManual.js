@@ -14,7 +14,7 @@ router.get('/', function(req, res, next) {
       title: '图书馆助手',
       status: 'Disconnect!',
       statusColorClass: 'band-yellow',
-      statusText: '已主动和断开客户端连接，请您进入下方链接手动申请 Token 后粘贴到软件中',
+      statusText: '已主动和客户端断开连接，请您进入下方链接手动申请 Token 后粘贴到软件中',
       isMobile: req.query.device == 'mobile'
     })
   } else {
