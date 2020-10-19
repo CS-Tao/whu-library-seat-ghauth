@@ -51,10 +51,21 @@ io.on('connection', (socketio) => {
   socketio.on('disconnect', () => {
     connectedSockets.delete(socketio);
     logger.log('Socket deleted', socketio.id);
-    logger.log('Remaining sockets', [...connectedSockets].join('  '));
+    logger.log(
+      'Remaining sockets',
+      [...connectedSockets].map((s) => s.id).join(' | ')
+    );
   });
   socketio.emit('socketId', socketio.id);
 });
+
+setInterval(() => {
+  connectedSockets.clear();
+  logger.log(
+    'Clear sockets set',
+    [...connectedSockets].map((s) => s.id).join(' | ')
+  );
+}, 86400000); // one day
 
 /**
  * Listen on provided port, on all network interfaces.
