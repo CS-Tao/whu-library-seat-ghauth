@@ -1,3 +1,5 @@
+![.github/workflows/leancloud.yml](https://github.com/CS-Tao/whu-library-seat-ghauth/workflows/.github/workflows/leancloud.yml/badge.svg)
+
 # whu-library-seat-ghauth
 
 > whu-library-seat 后台认证中间件
@@ -55,12 +57,27 @@
 
     ![图片加载失败](https://home.cs-tao.cc/github-content/contents/github/whu-library-seat/OAuth/6.png)
 
+## 环境变量
+
+```bash
+# Lean Cloud
+LEANCLOUD_APP_ID=******
+LEANCLOUD_APP_KEY=******
+LEANCLOUD_APP_MASTER_KEY=******
+
+# GitHub App Secret
+WHU_SEAT_CLIENT_SCERET=******
+```
+
 ## 构建步骤
 
 ```bash
-# 安装依赖
+# Install
 yarn
 
-# 启动服务
-yarn start
+# Develop
+yarn dev
+
+# Deploy
+yarn pub
 ```
