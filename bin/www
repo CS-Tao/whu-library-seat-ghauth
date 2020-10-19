@@ -14,7 +14,7 @@ var logger = require('../helpers/logger');
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '3002');
+var port = normalizePort(process.env.LEANCLOUD_APP_PORT || '3002');
 app.set('port', port);
 
 /**
@@ -27,10 +27,10 @@ var server = http.createServer(app);
  * Create socket.io server.
  */
 
- function clientIsValid (id) {
-   const ids = ['whu-library-seat', 'whu-library-seat-mobile']
-   return ids.findIndex((item) => item === id) !== -1
- }
+function clientIsValid(id) {
+  const ids = ['whu-library-seat', 'whu-library-seat-mobile'];
+  return ids.findIndex((item) => item === id) !== -1;
+}
 
 var io = require('socket.io')(server);
 app.set('socketio', io);
@@ -45,13 +45,13 @@ io.use((socket, next) => {
 
 const connectedSockets = new Set();
 
-io.on('connection', socketio => {
-  logger.log('Socket connected', socketio.id)
+io.on('connection', (socketio) => {
+  logger.log('Socket connected', socketio.id);
   connectedSockets.add(socketio);
   socketio.on('disconnect', () => {
     connectedSockets.delete(socketio);
-    logger.log('Socket deleted', socketio.id)
-    logger.log('Remaining sockets', [...connectedSockets].join('  '))
+    logger.log('Socket deleted', socketio.id);
+    logger.log('Remaining sockets', [...connectedSockets].join('  '));
   });
   socketio.emit('socketId', socketio.id);
 });
@@ -93,9 +93,7 @@ function onError(error) {
     throw error;
   }
 
-  var bind = typeof port === 'string'
-    ? 'Pipe ' + port
-    : 'Port ' + port;
+  var bind = typeof port === 'string' ? 'Pipe ' + port : 'Port ' + port;
 
   // handle specific listen errors with friendly messages
   switch (error.code) {
@@ -118,8 +116,6 @@ function onError(error) {
 
 function onListening() {
   var addr = server.address();
-  var bind = typeof addr === 'string'
-    ? 'pipe ' + addr
-    : 'port ' + addr.port;
+  var bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;
   debug('Listening on ' + bind);
 }
