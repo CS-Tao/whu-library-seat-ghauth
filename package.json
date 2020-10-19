@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev": "node ./bin/www",
+    "start": "node ./bin/www",
     "pub": "lean deploy"
   },
   "dependencies": {
