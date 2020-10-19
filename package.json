@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "dev": "node ./bin/www",
+    "pub": "lean deploy"
   },
   "dependencies": {
     "axios": "^0.18.1",
