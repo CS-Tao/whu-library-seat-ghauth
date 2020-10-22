@@ -193,6 +193,7 @@ a {
   z-index: 1;
 }
 .loading-wrap::after {
+  word-break: break-all;
   content: "This may take a few minutes, please wait ...";
   color: rgb(230, 230, 230);
 }

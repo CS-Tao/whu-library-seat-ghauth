@@ -7,7 +7,7 @@ var logger = require('morgan');
 var AV = require('leanengine');
 
 var index = require('./routes/index');
-var loginComfirm = require('./routes/loginComfirm');
+var loginConfirm = require('./routes/loginConfirm');
 var loginManual = require('./routes/loginManual');
 var loginCanceled = require('./routes/loginCanceled');
 var setToken = require('./routes/setToken');
@@ -34,7 +34,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
-app.use('/comfirm', loginComfirm);
+app.use('/comfirm', loginConfirm); // typo, deprecated someday
+app.use('/confirm', loginConfirm);
 app.use('/manual', loginManual);
 app.use('/canceled', loginCanceled);
 app.use('/settoken', setToken);
